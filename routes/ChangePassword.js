@@ -50,8 +50,10 @@ router.post('/', (req, res) => {
             res.status(200).json({response});
         })
         .catch((err) => {
-            console.log(err)
+            res.status(401).send();
         })
+    } else {
+        res.status(401);
     }
 })
 

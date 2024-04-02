@@ -32,7 +32,7 @@ router.put('/', (req, res) => {
         
         axios.put(`${API_BASE_URL}wc/v3/customers/${fetchId()}`, req.body.data, {headers: header})
         .then((response) => {
-            res.status(200).json({message: "success"})
+            res.status(200).json(response.data)
         })
         .catch((err) => {
             res.status(500).json({message: "Error"})
