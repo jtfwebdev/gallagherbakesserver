@@ -34,8 +34,7 @@ router.post('/', (req, res) => {
         res.status(200).json({token, userDetails});
     })
     .catch((apiErr) => {
-        console.log(apiErr)
-        res.status(500).json({apiErr})
+        res.status(401).send()
     })
 })
 
