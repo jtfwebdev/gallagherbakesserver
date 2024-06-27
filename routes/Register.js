@@ -11,10 +11,11 @@ const API_APPLICATION_PASSWORD = process.env.API_APPLICATION_PASSWORD;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/", (req, res) => {
+  const string = API_APPLICATION_KEY + ":" + API_APPLICATION_PASSWORD;
+
   const header = {
     "Content-Type": "application/json",
-    Authorization:
-      "Basic " + btoa(API_APPLICATION_KEY + ":" + API_APPLICATION_PASSWORD),
+    Authorization: "Basic " + Buffer.from(string).toString("base64"),
   };
 
   const username = req.body.email;

@@ -1,27 +1,29 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const axios = require('axios');
+const axios = require("axios");
 
 // Env variables
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_APPLICATION_KEY = process.env.API_APPLICATION_KEY;
 const API_APPLICATION_PASSWORD = process.env.API_APPLICATION_PASSWORD;
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
+  const string = API_APPLICATION_KEY + ":" + API_APPLICATION_PASSWORD;
 
-    const header = {
-        'Authorization': 'Basic ' + btoa(API_APPLICATION_KEY + ':' + API_APPLICATION_PASSWORD)
-    }
+  const header = {
+    Authorization: "Basic " + Buffer.from(string).toString("base64"),
+  };
 
-    axios.get(`${API_BASE_URL}wc/v3/products`, {
-        headers: header
+  axios
+    .get(`${API_BASE_URL}wc/v3/products`, {
+      headers: header,
     })
     .then((apiRes) => {
-        res.status(200).json(apiRes.data)
+      res.status(200).json(apiRes.data);
     })
     .catch((apiErr) => {
-        res.status(500).json({apiErr})
-    })
-})
+      res.status(500).json({ apiErr });
+    });
+});
 
 module.exports = router;
